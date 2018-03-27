@@ -35,7 +35,11 @@ void loop() {
     digitalWrite (LED_BUILTIN, LOW);
     delay(1000);
     digitalWrite (6, LOW);//El pin de la bomba de agua queda apagado
-    digitalWrite (9, HIGH);//El zumbador se enciende
+    digitalWrite (9, HIGH);
+    delay(1000);
+    digitalWrite (9, LOW);
+    delay(1000);//El zumbador se enciende
+
 
   }
   //ERROR 2: Fallo en la bomba
