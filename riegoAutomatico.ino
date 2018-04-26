@@ -1,5 +1,4 @@
-int hum = analogRead(A0);
-int humPercentage;
+
 
 void setup() {
   Serial.begin(9600);
@@ -7,18 +6,20 @@ void setup() {
   delay (5000);
   pinMode (LED_BUILTIN, OUTPUT);
   pinMode (6, OUTPUT);//Bomaba de agua
-  pinMode (9, OUTPUT);//Zumbador
+  pinMode (9, OUTPUT);//Zumbador o led
   pinMode (A0, INPUT);//Sensor de humedad
 }
 
 void loop() {
+  int hum = analogRead(A0);
+  int humPercentage;
   humPercentage = map(hum, 0, 1023, 0, 100);
   Serial.println (humPercentage);
   delay(100);
 
 
   //Riego
-  if (humPercentage > 0 && humPercentage < 70) {
+  if (humPercentage > 10 && humPercentage < 60) {
     Serial.println ("Regando las plantas");
     delay(100);
     digitalWrite (LED_BUILTIN, HIGH);
@@ -43,7 +44,7 @@ void loop() {
 
   }
   //ERROR 2: Fallo en la bomba
-  else if (humPercentage >= 97) {
+  else if (humPercentage >= 95) {
     Serial.println ("ERROR 2: Fallo en la bomba");
     delay(100);
     digitalWrite (LED_BUILTIN, HIGH);
@@ -55,7 +56,7 @@ void loop() {
 
   }
   //Plantas regadas
-  else if (humPercentage >= 70 || humPercentage < 95) {
+  else if (humPercentage >= 60 || humPercentage < 95) {
     Serial.println ("Plantas regadas");
     delay(100);
     digitalWrite (LED_BUILTIN, HIGH);
@@ -68,4 +69,3 @@ void loop() {
 
   }
 }
-
